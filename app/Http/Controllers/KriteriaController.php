@@ -51,25 +51,32 @@ class KriteriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(KriteriaModel $kriterium)
     {
-        //
+        return view('editKriteria', compact('kriterium'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, KriteriaModel $kriterium)
     {
-        //
+        $request->validate([
+            'nama_k' => 'required',
+            'bobot' => 'required',
+            'status' => 'required',
+        ]);
+
+        $kriterium->update($request->all());
+        return redirect()->route('kriteria.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KriteriaModel $kriteria)
+    public function destroy(KriteriaModel $kriterium)
     {
-        $kriteria->delete();
+        $kriterium->delete();
         return redirect()->route('kriteria.index');
     }
 }
