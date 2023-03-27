@@ -15,4 +15,8 @@ class KriteriaModel extends Model
         'bobot',
         'status',
     ];
+    public function indikator()
+    {
+        return $this->hasMany(IndikatorModel::class);
+    }
 }
