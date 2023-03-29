@@ -82,4 +82,5 @@ class IndikatorController extends Controller
         $indikator->delete();
         return redirect()->route('indikator.index');
     }
+    // test commit
 }
