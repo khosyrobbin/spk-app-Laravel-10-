@@ -13,7 +13,7 @@ class KriteriaController extends Controller
     public function index()
     {
         $kriteria = KriteriaModel::all();
-        return view('kriteria', compact('kriteria'));
+        return view('layout.kriteria', compact('kriteria'));
     }
 
     /**
@@ -53,7 +53,7 @@ class KriteriaController extends Controller
      */
     public function edit(KriteriaModel $kriterium)
     {
-        return view('editKriteria', compact('kriterium'));
+        return view('layout.editKriteria', compact('kriterium'));
     }
 
     /**

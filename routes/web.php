@@ -24,6 +24,3 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('kriteria', KriteriaController::class);
 Route::resource('indikator', IndikatorController::class);
-Route::get('/tmp', function () {
-    return view('template.template');
-});

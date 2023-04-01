@@ -15,7 +15,7 @@ class IndikatorController extends Controller
     {
         $indikator = IndikatorModel::all();
         $kriteria = KriteriaModel::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'id_kriteria');
-        return view('indikator', compact('indikator','kriteria'));
+        return view('layout.indikator', compact('indikator','kriteria'));
     }
 
     /**
@@ -56,7 +56,7 @@ class IndikatorController extends Controller
     {
         // $indikator = IndikatorModel::findOrFail($id_indikator);
         // $kriteria = KriteriaModel::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'id_kriteria');
-        return view('editIndikator', compact('indikator'));
+        return view('layout.editIndikator', compact('indikator'));
     }
 
     /**
