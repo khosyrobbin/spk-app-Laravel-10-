@@ -11,6 +11,9 @@
             <li class="nav-item">
                 <a href="{{ route('indikator.index') }}" class="nav-link"><i class="far fa-heart"></i><span>Indikator</span></a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('beasiswa.index') }}" class="nav-link"><i class="far fa-heart"></i><span>Beasiswa</span></a>
+            </li>
             <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i
                         class="far fa-clone"></i><span>Multiple Dropdown</span></a>

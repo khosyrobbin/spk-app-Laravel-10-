@@ -19,4 +19,8 @@ class IndikatorModel extends Model
     {
         return $this->belongsTo(KriteriaModel::class);
     }
+    public function beasiswa()
+    {
+        return $this->belongsToMany(BeasiswaModel::class);
+    }
 }

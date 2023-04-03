@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeasiswaController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\KriteriaController;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,4 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('kriteria', KriteriaController::class);
 Route::resource('indikator', IndikatorController::class);
+Route::resource('beasiswa', BeasiswaController::class);
