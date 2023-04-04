@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IndikatorModel;
-use App\Models\KriteriaModel;
+use App\Models\Indikator;
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
 class IndikatorController extends Controller
@@ -13,8 +13,8 @@ class IndikatorController extends Controller
      */
     public function index()
     {
-        $indikator = IndikatorModel::all();
-        $kriteria = KriteriaModel::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'id_kriteria');
+        $indikator = Indikator::all();
+        $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
         return view('layout.indikator', compact('indikator','kriteria'));
     }
 
@@ -34,10 +34,10 @@ class IndikatorController extends Controller
         $request->validate([
             'nama_i' => 'required',
             'nilai_i' => 'required',
-            'id_kriteria' => 'required',
+            'kriteria_id' => 'required',
         ]);
 
-        IndikatorModel::create($request->all());
+        Indikator::create($request->all());
         return redirect()->route('indikator.index');
     }
 
@@ -52,22 +52,22 @@ class IndikatorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(IndikatorModel $indikator)
+    public function edit(Indikator $indikator)
     {
-        // $indikator = IndikatorModel::findOrFail($id_indikator);
-        // $kriteria = KriteriaModel::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'id_kriteria');
+        // $indikator = Indikator::findOrFail($indikator_id);
+        // $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
         return view('layout.editIndikator', compact('indikator'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, IndikatorModel $indikator)
+    public function update(Request $request, Indikator $indikator)
     {
         $request->validate([
             'nama_i' => 'required',
             'nilai_i' => 'required',
-            // 'id_kriteria' => 'required',
+            // 'kriteria_id' => 'required',
         ]);
 
         $indikator->update($request->all());
@@ -77,7 +77,7 @@ class IndikatorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(IndikatorModel $indikator)
+    public function destroy(Indikator $indikator)
     {
         $indikator->delete();
         return redirect()->route('indikator.index');

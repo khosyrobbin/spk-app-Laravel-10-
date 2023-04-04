@@ -4,17 +4,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <?php $nama = App\Models\KriteriaModel::find($indikator->id_kriteria); ?>
+                    <?php $nama = App\Models\Kriteria::find($indikator->kriteria_id); ?>
                     <div class="card-header">{{ __('Edit Indikator ') }}{{$nama->nama_k}}</div>
 
                     <div class="card-body">
-                        <form action="{{ route('indikator.update', $indikator->id_indikator) }}" method="POST" role="form">
+                        <form action="{{ route('indikator.update', $indikator->indikator_id) }}" method="POST" role="form">
                             @csrf
                             @method('PUT')
                             {{-- <div class="mb-3">
-                                <label for="id_kriteria" class="form-label text-bold">Nama Kriteria:</label>
-                                <input type="text" class="form-control card card-body border" name="id_kriteria"
-                                id="id_kriteria" value="{{ $nama->nama_k }}" readonly>
+                                <label for="kriteria_id" class="form-label text-bold">Nama Kriteria:</label>
+                                <input type="text" class="form-control card card-body border" name="kriteria_id"
+                                id="kriteria_id" value="{{ $nama->nama_k }}" readonly>
                             </div> --}}
                             <div class="mb-3">
                                 <label for="nama_i" class="form-label text-bold">Nama Indikator:</label>

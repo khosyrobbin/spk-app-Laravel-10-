@@ -28,6 +28,7 @@
                                 <tr>
                                     <th scope="col">Nama Beasiswa</th>
                                     <th scope="col">Kriteria</th>
+                                    <th></th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -35,12 +36,12 @@
                                 @foreach ($beasiswa as $item)
                                     <tr>
                                         <td>{{ $item->nama_b }}</td>
-                                        {{-- <td>{{ implode(', ', $item->indikator->pluck('nama_i')->toArray()) }}</td> --}}
+                                        <td>{{ implode(', ', $item->indikator->pluck('nama_i')->toArray()) }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>
-                                            <form action="{{ route('beasiswa.destroy', $item->id_beasiswa) }}"
+                                            <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}"
                                                 method="post">
-                                                <a href="{{ route('beasiswa.edit', $item->id_beasiswa) }}"
+                                                <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}"
                                                     class="btn btn-warning">edit</a>
                                                 @csrf
                                                 @method('DELETE')
@@ -73,11 +74,10 @@
                                 name="nama_b">
                         </div>
                         <div class="mb-3 mt-3">
-                            <label for="bobot" class="form-label text-bold">Bobot:</label>
+                            <label class="form-label text-bold">Indikator:</label>
                             @foreach ($indikator as $data => $nama_i)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="id_indikator[]"
-                                    value="{{ $data }}">
+                                <input class="form-check-input" type="checkbox" name="indikator_id[]" value="{{ $data }}">
                                 <label class="form-check-label">
                                     {{ $nama_i }}
                                 </label>

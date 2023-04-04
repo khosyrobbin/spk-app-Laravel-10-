@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KriteriaModel;
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
 class KriteriaController extends Controller
@@ -12,7 +12,7 @@ class KriteriaController extends Controller
      */
     public function index()
     {
-        $kriteria = KriteriaModel::all();
+        $kriteria = Kriteria::all();
         return view('layout.kriteria', compact('kriteria'));
     }
 
@@ -35,7 +35,7 @@ class KriteriaController extends Controller
             'status' => 'required',
         ]);
 
-        KriteriaModel::create($request->all());
+        Kriteria::create($request->all());
         return redirect()->route('kriteria.index')
         ->with('pesan','Kriteria berhasil ditambahakan');
     }
@@ -51,7 +51,7 @@ class KriteriaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(KriteriaModel $kriterium)
+    public function edit(Kriteria $kriterium)
     {
         return view('layout.editKriteria', compact('kriterium'));
     }
@@ -59,7 +59,7 @@ class KriteriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KriteriaModel $kriterium)
+    public function update(Request $request, Kriteria $kriterium)
     {
         $request->validate([
             'nama_k' => 'required',
@@ -74,7 +74,7 @@ class KriteriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(KriteriaModel $kriterium)
+    public function destroy(Kriteria $kriterium)
     {
         $kriterium->delete();
         return redirect()->route('kriteria.index');

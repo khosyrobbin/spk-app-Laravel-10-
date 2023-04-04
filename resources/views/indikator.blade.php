@@ -25,14 +25,14 @@
                             <tbody class=" table-hover">
                                 @foreach ($indikator as $item)
                                     <tr>
-                                        <?php $nama = App\Models\KriteriaModel::find($item->id_kriteria); ?>
+                                        <?php $nama = App\Models\Kriteria::find($item->kriteria_id); ?>
                                         <td>{{ $nama->nama_k }}</td>
                                         <td>{{ $item->nama_i }}</td>
                                         <td>{{ $item->nilai_i }}</td>
                                         <td>
-                                            <form action="{{ route('indikator.destroy', $item->id_indikator) }}"
+                                            <form action="{{ route('indikator.destroy', $item->indikator_id) }}"
                                                 method="post">
-                                                <a href="{{ route('indikator.edit', $item->id_indikator) }}"
+                                                <a href="{{ route('indikator.edit', $item->indikator_id) }}"
                                                     class="btn btn-warning">edit</a>
                                                 @csrf
                                                 @method('DELETE')
@@ -60,11 +60,11 @@
                     <form action="{{ route('indikator.store') }}" method="post" role="form">
                         @csrf
                         <div class="mb-3 mt-3">
-                            <label for="id_kriteria" class="form-label text-bold">Nama Kriteria:</label>
-                            <select name="id_kriteria" id="id_kriteria">
+                            <label for="kriteria_id" class="form-label text-bold">Nama Kriteria:</label>
+                            <select name="kriteria_id" id="kriteria_id">
                                 <option value="">Pilih nama kriteria</option>
                                 @foreach ($kriteria as $data => $nama_k)
-                                    <option value="{{ $data }}" @selected(old('id_kriteria') == $data)>
+                                    <option value="{{ $data }}" @selected(old('kriteria_id') == $data)>
                                         {{ $nama_k }}
                                     </option>
                                 @endforeach

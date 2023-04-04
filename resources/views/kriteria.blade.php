@@ -29,9 +29,9 @@
                                         <td>{{ $item->bobot }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>
-                                            <form action="{{ route('kriteria.destroy', $item->id_kriteria) }}"
+                                            <form action="{{ route('kriteria.destroy', $item->kriteria_id) }}"
                                                 method="post">
-                                                <a href="{{ route('kriteria.edit', $item->id_kriteria) }}"
+                                                <a href="{{ route('kriteria.edit', $item->kriteria_id) }}"
                                                     class="btn btn-warning">edit</a>
                                                 @csrf
                                                 @method('DELETE')

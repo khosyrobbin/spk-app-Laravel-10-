@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('indikator_beasiswa', function (Blueprint $table) {
-            $table->id('id_ib');
+        Schema::create('beasiswa_indikator', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('beasiswa_id')->constrained('beasiswa', 'beasiswa_id');
+            $table->foreignId('indikator_id')->constrained('indikator', 'indikator_id');
             $table->timestamps();
         });
+
     }
 
     /**
@@ -22,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kriteria_beasiswa');
+        Schema::dropIfExists('beasiswa_indikator');
     }
 };

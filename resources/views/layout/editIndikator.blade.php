@@ -6,11 +6,11 @@
             <div class="section-body">
                 <div class="card">
                     <div class="card-header">
-                        <?php $nama = App\Models\KriteriaModel::find($indikator->id_kriteria); ?>
+                        <?php $nama = App\Models\Kriteria::find($indikator->kriteria_id); ?>
                         <h4>Edit indikator kriteria {{ $nama->nama_k }}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('indikator.update', $indikator->id_indikator) }}" method="POST" role="form">
+                        <form action="{{ route('indikator.update', $indikator->indikator_id) }}" method="POST" role="form">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">

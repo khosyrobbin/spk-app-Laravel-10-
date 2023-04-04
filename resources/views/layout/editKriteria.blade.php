@@ -9,7 +9,7 @@
                         <h4>Edit kriteria {{$kriterium->nama_k}}</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('kriteria.update', $kriterium->id_kriteria) }}" method="POST" role="form">
+                        <form action="{{ route('kriteria.update', $kriterium->kriteria_id) }}" method="POST" role="form">
                             @csrf
                             @method('PUT')
                             <div class="mb-3">

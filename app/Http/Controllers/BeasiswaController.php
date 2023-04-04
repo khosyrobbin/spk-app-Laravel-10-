@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BeasiswaModel;
-use App\Models\IndikatorModel;
+use App\Models\Beasiswa;
+use App\Models\Indikator;
 use Illuminate\Http\Request;
 
 class BeasiswaController extends Controller
@@ -13,8 +13,8 @@ class BeasiswaController extends Controller
      */
     public function index()
     {
-        $beasiswa = BeasiswaModel::all();
-        $indikator = IndikatorModel::orderBy('nama_i', 'asc')->get()->pluck('nama_i', 'id_indikator');
+        $beasiswa = Beasiswa::all();
+        $indikator = Indikator::orderBy('nama_i', 'asc')->get()->pluck('nama_i', 'indikator_id');
 
         return view('layout.beasiswa', compact('beasiswa','indikator'));
     }
@@ -34,14 +34,15 @@ class BeasiswaController extends Controller
     {
         $request->validate([
             'nama_b' => 'required',
+            'indikator_id' => 'required|array|min:2'
         ]);
 
-        // BeasiswaModel::create($request->all());
+        // Beasiswa::create($request->all());
         // return redirect()->route('beasiswa.index');
 
         // $params = $request->validated();
-        if ($beasiswa = BeasiswaModel::create($request->all())) {
-            $beasiswa->indikator()->sync($request['id_indikator']);
+        if ($beasiswa = Beasiswa::create($request->all())) {
+            $beasiswa->indikator()->sync($request['indikator_id']);
 
             return redirect(route('beasiswa.index'));
         }
@@ -58,9 +59,9 @@ class BeasiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Beasiswa $beasiswa)
     {
-        //
+        return view('layout.editBeasiswa', compact('beasiswa'));
     }
 
     /**
@@ -74,8 +75,9 @@ class BeasiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Beasiswa $beasiswa)
     {
-        //
+        $beasiswa->delete();
+        return redirect()->route('beasiswa.index');
     }
 }

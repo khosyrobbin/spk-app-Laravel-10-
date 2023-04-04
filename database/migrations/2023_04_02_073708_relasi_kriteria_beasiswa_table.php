@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('indikator_beasiswa', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_indikator')->nullable();
-            $table->foreign('id_indikator')->references('id_indikator')->on('indikator');
-            $table->unsignedBigInteger('id_beasiswa')->nullable();
-            $table->foreign('id_beasiswa')->references('id_beasiswa')->on('beasiswa');
-        });
+        // Schema::table('beasiswa_indikator', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('indikator_id')->nullable();
+        //     $table->foreign('indikator_id')->references('indikator_id')->on('indikator');
+        //     $table->unsignedBigInteger('beasiswa_id')->nullable();
+        //     $table->foreign('beasiswa_id')->references('beasiswa_id')->on('beasiswa');
+        // });
     }
 
     /**
@@ -24,11 +24,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('indikator_beasiswa', function (Blueprint $table) {
-            $table->string('id_indikator');
-            $table->dropForeign(['id_indikator']);
-            $table->string('beasiswa');
-            $table->dropForeign(['id_beasiswa']);
-        });
+        // Schema::table('beasiswa_indikator', function (Blueprint $table) {
+        //     $table->string('indikator_id');
+        //     $table->dropForeign(['indikator_id']);
+        //     $table->string('beasiswa');
+        //     $table->dropForeign(['beasiswa_id']);
+        // });
     }
 };

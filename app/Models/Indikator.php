@@ -5,22 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class IndikatorModel extends Model
+class Indikator extends Model
 {
     use HasFactory;
     protected $table = 'indikator';
-    protected $primaryKey = 'id_indikator';
+    protected $primaryKey = 'indikator_id';
     protected $fillable = [
         'nama_i',
         'nilai_i',
-        'id_kriteria',
+        'kriteria_id',
     ];
     public function kriteria()
     {
-        return $this->belongsTo(KriteriaModel::class);
+        return $this->belongsTo(Kriteria::class);
     }
     public function beasiswa()
     {
-        return $this->belongsToMany(BeasiswaModel::class);
+        return $this->belongsToMany(Beasiswa::class);
     }
 }
