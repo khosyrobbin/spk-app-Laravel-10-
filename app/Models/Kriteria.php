@@ -19,5 +19,9 @@ class Kriteria extends Model
     {
         return $this->hasMany(Indikator::class);
     }
+    public function beasiswa()
+    {
+        return $this->belongsToMany(Beasiswa::class);
+    }
 
 }

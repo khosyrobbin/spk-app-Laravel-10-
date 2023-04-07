@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Beasiswa;
 use App\Models\Indikator;
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
 class BeasiswaController extends Controller
@@ -14,9 +15,10 @@ class BeasiswaController extends Controller
     public function index()
     {
         $beasiswa = Beasiswa::all();
-        $indikator = Indikator::orderBy('nama_i', 'asc')->get()->pluck('nama_i', 'indikator_id');
+        $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
+        // $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
 
-        return view('layout.beasiswa', compact('beasiswa','indikator'));
+        return view('layout.beasiswa', compact('beasiswa','kriteria'));
     }
 
     /**
@@ -34,7 +36,7 @@ class BeasiswaController extends Controller
     {
         $request->validate([
             'nama_b' => 'required',
-            'indikator_id' => 'required|array|min:2'
+            'kriteria_id' => 'required|array|min:2'
         ]);
 
         // Beasiswa::create($request->all());
@@ -42,7 +44,7 @@ class BeasiswaController extends Controller
 
         // $params = $request->validated();
         if ($beasiswa = Beasiswa::create($request->all())) {
-            $beasiswa->indikator()->sync($request['indikator_id']);
+            $beasiswa->kriteria()->sync($request['kriteria_id']);
 
             return redirect(route('beasiswa.index'));
         }
@@ -59,17 +61,31 @@ class BeasiswaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Beasiswa $beasiswa)
+    public function edit($beasiswa_id)
     {
-        return view('layout.editBeasiswa', compact('beasiswa'));
+        $beasiswa = Beasiswa::findOrFail($beasiswa_id);
+        $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
+
+        return view('layout.editBeasiswa', compact('beasiswa','kriteria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,Beasiswa $beasiswa)
     {
-        //
+        $request->validate([
+            'nama_b' => 'required',
+            'kriteria_id' => 'required|array|min:2'
+        ]);
+
+        if ($beasiswa->update($request->all())) {
+            $beasiswa->kriteria()->sync($request['kriteria_id']);
+
+            return redirect(route('beasiswa.index'));
+        }
+        // $beasiswa->update($request->all());
+        // return redirect(route('beasiswa.index'));
     }
 
     /**
@@ -77,6 +93,7 @@ class BeasiswaController extends Controller
      */
     public function destroy(Beasiswa $beasiswa)
     {
+        $beasiswa->kriteria()->detach();
         $beasiswa->delete();
         return redirect()->route('beasiswa.index');
     }

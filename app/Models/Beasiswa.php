@@ -17,4 +17,8 @@ class Beasiswa extends Model
     {
         return $this->belongsToMany(Indikator::class);
     }
+    public function kriteria()
+    {
+        return $this->belongsToMany(Kriteria::class);
+    }
 }

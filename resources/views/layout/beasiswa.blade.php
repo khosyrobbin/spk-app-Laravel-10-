@@ -20,7 +20,7 @@
                             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         <div style="height: 50px">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalBeasiswa">Tambah Kriteria
+                                data-bs-target="#exampleModalBeasiswa">Tambah Beasiswa
                             </button>
                         </div>
                         <table class="table table-hover">
@@ -36,7 +36,7 @@
                                 @foreach ($beasiswa as $item)
                                     <tr>
                                         <td>{{ $item->nama_b }}</td>
-                                        <td>{{ implode(', ', $item->indikator->pluck('nama_i')->toArray()) }}</td>
+                                        <td>{{ implode(', ', $item->kriteria->pluck('nama_k')->toArray()) }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>
                                             <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}"
@@ -75,15 +75,27 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label class="form-label text-bold">Indikator:</label>
-                            @foreach ($indikator as $data => $nama_i)
+                            @foreach ($kriteria as $data => $kriteria_id)
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="indikator_id[]" value="{{ $data }}">
+                                <input class="form-check-input" type="checkbox" name="kriteria_id[]" value="{{ $data }}">
                                 <label class="form-check-label">
-                                    {{ $nama_i }}
+                                    {{ $kriteria_id }}
                                 </label>
                             </div>
                             @endforeach
                         </div>
+                        {{-- test kriteria --}}
+                        {{-- <div class="mb-3 mt-3">
+                            <label class="form-label text-bold">Kriteria:</label>
+                            @foreach ($kriteria as $data => $nama_k)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="indikator_id[]" value="{{ $data }}">
+                                <label class="form-check-label">
+                                    {{ $nama_k }}
+                                </label>
+                            </div>
+                            @endforeach
+                        </div> --}}
                         <div class="modal-footer">
                             <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
