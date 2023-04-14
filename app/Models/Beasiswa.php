@@ -13,12 +13,16 @@ class Beasiswa extends Model
     protected $fillable = [
         'nama_b',
     ];
-    public function indikator()
-    {
-        return $this->belongsToMany(Indikator::class);
-    }
+    // public function indikator()
+    // {
+    //     return $this->belongsToMany(Indikator::class);
+    // }
     public function kriteria()
     {
         return $this->belongsToMany(Kriteria::class);
+    }
+    public function seleksi()
+    {
+        return $this->hasMany(seleksi::class);
     }
 }

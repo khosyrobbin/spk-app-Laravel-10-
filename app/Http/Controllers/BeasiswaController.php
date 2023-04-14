@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Beasiswa;
 use App\Models\Indikator;
 use App\Models\Kriteria;
+use App\Models\seleksi;
 use Illuminate\Http\Request;
 
 class BeasiswaController extends Controller
@@ -53,9 +54,15 @@ class BeasiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($beasiswa_id)
     {
-        //
+        $beasiswa = Beasiswa::findOrFail($beasiswa_id);
+
+        $seleksi = seleksi::all();
+        $indikator_s = Indikator::all();
+        $kriteria_s = Kriteria::all();
+
+        return view('layout.showBeasiswa', compact('beasiswa','seleksi','indikator_s','kriteria_s'));
     }
 
     /**

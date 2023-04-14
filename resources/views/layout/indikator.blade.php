@@ -81,7 +81,7 @@
                         </div>
                         <div class="mb-3 mt-3">
                             <label for="nama_i" class="form-label text-bold">Nama Indikator:</label>
-                            <input type="text" class="form-control" id="nama_i" placeholder="Tambahkan kriteria baru"
+                            <input type="text" class="form-control" id="nama_i" placeholder="Tambahkan Indikator baru"
                                 name="nama_i">
                         </div>
                         <div class="mb-3 mt-3">

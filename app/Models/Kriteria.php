@@ -23,5 +23,10 @@ class Kriteria extends Model
     {
         return $this->belongsToMany(Beasiswa::class);
     }
+    // public function seleksi()
+    // {
+    //     return $this->belongsToMany(seleksi::class);
+    // }
+
 
 }

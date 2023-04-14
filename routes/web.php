@@ -3,6 +3,7 @@
 use App\Http\Controllers\BeasiswaController;
 use App\Http\Controllers\IndikatorController;
 use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\SeleksiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('kriteria', KriteriaController::class);
 Route::resource('indikator', IndikatorController::class);
 Route::resource('beasiswa', BeasiswaController::class);
+Route::resource('seleksi', SeleksiController::class);

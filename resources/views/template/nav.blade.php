@@ -5,13 +5,13 @@
                 <a href="#" class="nav-link"><i
                         class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request()->is('kriteria') ? 'active' : '' }}">
                 <a href="{{ route('kriteria.index') }}" class="nav-link"><i class="far fa-heart"></i><span>Kriteria</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request()->is('indikator') ? 'active' : '' }}">
                 <a href="{{ route('indikator.index') }}" class="nav-link"><i class="far fa-heart"></i><span>Indikator</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request()->is('beasiswa') ? 'active' : '' }}">
                 <a href="{{ route('beasiswa.index') }}" class="nav-link"><i class="far fa-heart"></i><span>Beasiswa</span></a>
             </li>
             <li class="nav-item dropdown">

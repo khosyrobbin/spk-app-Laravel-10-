@@ -19,8 +19,8 @@ class Indikator extends Model
     {
         return $this->belongsTo(Kriteria::class);
     }
-    public function beasiswa()
+    public function seleksi()
     {
-        return $this->belongsToMany(Beasiswa::class);
+        return $this->belongsToMany(seleksi::class);
     }
 }
