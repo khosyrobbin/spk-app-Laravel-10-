@@ -19,7 +19,7 @@ class Beasiswa extends Model
     // }
     public function kriteria()
     {
-        return $this->belongsToMany(Kriteria::class);
+        return $this->belongsToMany(Kriteria::class, 'beasiswa_kriteria');
     }
     public function seleksi()
     {

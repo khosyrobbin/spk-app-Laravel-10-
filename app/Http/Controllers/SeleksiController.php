@@ -7,6 +7,7 @@ use App\Models\Indikator;
 use App\Models\Kriteria;
 use App\Models\seleksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SeleksiController extends Controller
 {
@@ -87,5 +88,21 @@ class SeleksiController extends Controller
         $seleksi->indikator()->detach();
         $seleksi->delete();
         return redirect()->back();
+    }
+
+    public function topsis($beasiswa_id)
+    {
+        $beasiswa = Beasiswa::with('kriteria')->first();
+        $seleksi = seleksi::with('indikator')->get();
+
+        // $indikator = Indikator::get()->pluck('nilai_i', 'indikator_id');
+        // $kriteria = Kriteria::all();
+
+
+        // $indikator = array();
+        // $kriteria_s = array();
+
+        // dd($jumlah->indikator);
+        return view('layout.topsis', compact('beasiswa','seleksi'));
     }
 }

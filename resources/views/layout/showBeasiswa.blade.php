@@ -36,16 +36,16 @@
                                             <td>{{ $item->NISN }}</td>
                                             <td>{{ $item->nama_siswa }}</td>
                                             {{-- <td>{{ $item->nama_k }}</td>
-                                    <td>{{ $item->nama_i }}</td> --}}
+                                            <td>{{ $item->nama_i }}</td> --}}
                                             <td>{{ $item->status }}</td>
                                             <td>
-                                                <button class="btn btn-warning btn-detail open_modal"
-                                                    value="{{ $item->seleksi_id }}">detail</button>
+                                                {{-- <button class="btn btn-warning btn-detail open_modal"
+                                                    value="{{ $item->seleksi_id }}">detail</button> --}}
 
                                                 <form action="{{ route('seleksi.destroy', $item->seleksi_id) }}"
                                                     method="post">
-                                                    <a href="{{ route('beasiswa.edit', $item->seleksi_id) }}"
-                                                        class="btn btn-warning">edit</a>
+                                                    {{-- <a href="{{ route('beasiswa.edit', $item->seleksi_id) }}"
+                                                        class="btn btn-warning">edit</a> --}}
                                                     @csrf
                                                     @method('DELETE')
                                                     <button class="btn btn-danger">delete</button>
@@ -83,7 +83,7 @@
                             <input type="text" class="form-control" id="nama_siswa" placeholder="Tambahkan siswa baru"
                                 name="nama_siswa">
                         </div>
-                        @foreach ($kriteria_s as $data)
+                        @foreach ($beasiswa->kriteria as $data)
                             <div class="mb-3 mt-3">
                                 <label for="" class="form-label text-bold">{{ $data->nama_k }}</label>
                                 <select name="indikator_id[]" class="form-control">

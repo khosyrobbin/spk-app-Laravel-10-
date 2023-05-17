@@ -9,55 +9,50 @@
             <div class="section-body">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Example Card</h4>
+                        <p>Halaman ini merupakan halaman untuk mengelola beasiswa</p>
                     </div>
                     <div class="card-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         <div style="height: 50px">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalBeasiswa">Tambah Beasiswa
                             </button>
                         </div>
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nama Beasiswa</th>
-                                    <th scope="col">Kriteria</th>
-                                    <th></th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class=" table-hover">
-                                @foreach ($beasiswa as $item)
-                                    <tr>
-                                        <td>{{ $item->nama_b }}</td>
-                                        <td>{{ implode(', ', $item->kriteria->pluck('nama_k')->toArray()) }}</td>
-                                        <td>{{ $item->status }}</td>
-                                        <td>
-                                            <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}"
-                                                method="post">
-                                                <a href="{{ route('beasiswa.show', $item->beasiswa_id) }}" class="btn btn-info">Kelola Beasiswa</a>
-                                                <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}"
-                                                    class="btn btn-warning">edit</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">delete</button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+
+    @foreach ($beasiswa as $item)
+        <div class="row">
+            <div class="col-12">
+                <article class="article article-style-b">
+                    <div class="article-details">
+                        <div class="article-title">
+                            <h4><strong>Beasiswa {{ $item->nama_b }}</strong></h4>
+                        </div>
+                        <p>Kriteria: {{ implode(', ', $item->kriteria->pluck('nama_k')->toArray()) }}</p>
+                        {{-- <p>{{$item->kriteria->pluck('nama_k')}}</p> --}}
+                        <div class="article-cta">
+                            <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}"
+                                method="post">
+                                <a href="{{ route('topsis', $item->beasiswa_id) }}" class="btn btn-success">Lihat Hasil</a>
+                                <a href="{{ route('beasiswa.show', $item->beasiswa_id) }}"
+                                    class="btn btn-info">Kelola Beasiswa</a>
+                                <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}"
+                                    class="btn btn-warning">Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                            {{-- <a href="#">Read More <i class="fas fa-chevron-right"></i></a> --}}
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    @endforeach
+
     <!-- Modal tambah kriteria -->
     <div class="modal fade" id="exampleModalBeasiswa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -77,12 +72,13 @@
                         <div class="mb-3 mt-3">
                             <label class="form-label text-bold">Indikator:</label>
                             @foreach ($kriteria as $data => $kriteria_id)
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="kriteria_id[]" value="{{ $data }}">
-                                <label class="form-check-label">
-                                    {{ $kriteria_id }}
-                                </label>
-                            </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="kriteria_id[]"
+                                        value="{{ $data }}">
+                                    <label class="form-check-label">
+                                        {{ $kriteria_id }}
+                                    </label>
+                                </div>
                             @endforeach
                         </div>
                         {{-- test kriteria --}}

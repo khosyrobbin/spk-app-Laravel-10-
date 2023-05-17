@@ -21,12 +21,12 @@ class Kriteria extends Model
     }
     public function beasiswa()
     {
-        return $this->belongsToMany(Beasiswa::class);
+        return $this->belongsToMany(Beasiswa::class, 'beasiswa_kriteria');
     }
-    // public function seleksi()
-    // {
-    //     return $this->belongsToMany(seleksi::class);
-    // }
+    public function seleksi()
+    {
+        return $this->hasMany(seleksi::class);
+    }
 
 
 }

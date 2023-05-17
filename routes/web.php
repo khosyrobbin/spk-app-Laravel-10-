@@ -28,3 +28,6 @@ Route::resource('kriteria', KriteriaController::class);
 Route::resource('indikator', IndikatorController::class);
 Route::resource('beasiswa', BeasiswaController::class);
 Route::resource('seleksi', SeleksiController::class);
+
+// route topsis
+Route::get('/seleksi/topsis/{beasiswa_id}', [SeleksiController::class, 'topsis'])->name('topsis');

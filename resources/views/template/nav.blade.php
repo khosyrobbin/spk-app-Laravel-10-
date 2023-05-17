@@ -14,7 +14,7 @@
             <li class="nav-item {{ Request()->is('beasiswa') ? 'active' : '' }}">
                 <a href="{{ route('beasiswa.index') }}" class="nav-link"><i class="far fa-heart"></i><span>Beasiswa</span></a>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i
                         class="far fa-clone"></i><span>Multiple Dropdown</span></a>
                 <ul class="dropdown-menu">
@@ -35,7 +35,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>

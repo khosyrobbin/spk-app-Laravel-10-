@@ -9,7 +9,7 @@
             <div class="section-body">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Example Card</h4>
+                        <h4>Example Cardd</h4>
                     </div>
                     <div class="card-body">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

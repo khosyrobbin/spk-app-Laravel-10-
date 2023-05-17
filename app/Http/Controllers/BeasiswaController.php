@@ -19,6 +19,7 @@ class BeasiswaController extends Controller
         $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
         // $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
 
+        // dd($kriteria);
         return view('layout.beasiswa', compact('beasiswa','kriteria'));
     }
 
@@ -56,12 +57,13 @@ class BeasiswaController extends Controller
      */
     public function show($beasiswa_id)
     {
-        $beasiswa = Beasiswa::findOrFail($beasiswa_id);
+        $beasiswa = Beasiswa::with('kriteria')->first();
 
         $seleksi = seleksi::all();
         $indikator_s = Indikator::all();
         $kriteria_s = Kriteria::all();
 
+        // dd($beasiswa->kriteria);
         return view('layout.showBeasiswa', compact('beasiswa','seleksi','indikator_s','kriteria_s'));
     }
 

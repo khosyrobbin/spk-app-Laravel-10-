@@ -27,4 +27,9 @@ class seleksi extends Model
     {
         return $this->belongsTo(Beasiswa::class);
     }
+
+    public function kriteria()
+    {
+        return $this->belongsTo(Kriteria::class);
+    }
 }
