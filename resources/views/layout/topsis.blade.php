@@ -83,19 +83,20 @@
                                     <td>A{{ $no }}</td>
                                     <td>{{ $data->nama_siswa }}</td>
                                     {{-- <td>{{ round(0.6543,2) }}</td> round((($i->nilai_i)/ pow($i->nilai_i, 2)), 2) --}}
-                                    @foreach ($data->indikator as $i)
-                                        <td>{{ pow($i->nilai_i, 2) }}</td>
+                                    @foreach ($data->indikator as $key => $i)
+                                        <td>{{ round(($i->nilai_i) / sqrt($sum_indikator[$key]), 4) }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
                             <td></td>
                             <td></td>
                             <td>Jumlah =</td>
-                            @foreach ($seleksi as $data)
-                            @foreach ( $data->indikator as $i )
-                            <td>{{ $i->pluck('nilai_i') }}</td>
+                            @foreach ($sum_indikator as $indikator)
+                                <td> {{ $indikator }} </td>
                             @endforeach
-                            @endforeach
+                            {{-- @foreach ($seleksi->indikator as $data)
+                            <td>{{ $data->nilai_i }}</td>
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>

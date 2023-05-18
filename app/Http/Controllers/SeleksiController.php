@@ -44,8 +44,7 @@ class SeleksiController extends Controller
             'beasiswa_id' => 'required',
             'indikator_id' => 'required|array|max:5'
         ]);
-        if ($seleksi = seleksi::create($request->all())) {
-            {
+        if ($seleksi = seleksi::create($request->all())) { {
                 $seleksi->indikator()->sync($request['indikator_id']);
                 // $seleksi->indikator()->sync($request['indikator_id']);
             }
@@ -95,6 +94,19 @@ class SeleksiController extends Controller
         $beasiswa = Beasiswa::with('kriteria')->first();
         $seleksi = seleksi::with('indikator')->get();
 
+        $indikator = $seleksi->pluck('indikator');
+
+        $sum_indikator = [];
+
+        foreach ($indikator as $index => $subArray) {
+            foreach ($subArray as $innerIndex => $value) {
+                if (!isset($sum_indikator[$innerIndex])) {
+                    $sum_indikator[$innerIndex] = 0;
+                }
+                $sum_indikator[$innerIndex] += pow($value["nilai_i"], 2);
+            }
+        }
+
         // $indikator = Indikator::get()->pluck('nilai_i', 'indikator_id');
         // $kriteria = Kriteria::all();
 
@@ -102,7 +114,7 @@ class SeleksiController extends Controller
         // $indikator = array();
         // $kriteria_s = array();
 
-        // dd($jumlah->indikator);
-        return view('layout.topsis', compact('beasiswa','seleksi'));
+        // dd($seleksi);
+        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator'));
     }
 }
