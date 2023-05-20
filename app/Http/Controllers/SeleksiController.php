@@ -45,6 +45,8 @@ class SeleksiController extends Controller
             'indikator_id' => 'required|array|max:5',
             'bobot' => 'required|array',
             'bobot.*' => 'numeric',
+            'status' => 'required|array',
+            'status.*' => 'numeric',
         ]);
 
         $seleksi = Seleksi::create([
@@ -55,10 +57,14 @@ class SeleksiController extends Controller
 
         $indikatorIds = $request->indikator_id;
         $bobotArray = $request->bobot;
+        $statusArray = $request->status;
 
         foreach ($indikatorIds as $index => $indikatorId) {
             $bobot = $bobotArray[$index];
-            $seleksi->indikator()->attach($indikatorId, ['bobot' => $bobot]);
+            $status = $statusArray[$index];
+
+            $seleksi->indikator()->attach($indikatorId, ['bobot' => $bobot,'status' => $status]);
+
         }
 
         return redirect()->back();

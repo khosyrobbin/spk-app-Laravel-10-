@@ -92,8 +92,8 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <input type="text" name="bobot[]" value="{{$data->bobot}}">
-                                {{-- <input type="text" name="status" value="{{$data->status}}"> --}}
+                                <input type="hidden" name="bobot[]" value="{{$data->bobot}}">
+                                <input type="hidden" name="status[]" value="{{$data->status}}">
                             </div>
                         @endforeach
                         <div class="modal-footer">

@@ -99,7 +99,7 @@
             {{-- 3 --}}
             <div class="section-body">
                 <div class="card">
-                    <h6>Normalisasi (r<sub>ij</sub>)</h6>
+                    <h6>Normalisasi Terbobot(r<sub>ij</sub>)</h6>
                     <table class="table table-hover">
                         <thead>
                             <tr>
@@ -128,7 +128,7 @@
                                     <td>A{{ $no }}</td>
                                     <td>{{ $data->nama_siswa }}</td>
                                     @foreach ($data->indikator as $key => $i)
-                                        <td>{{ round($i->nilai_i / sqrt($sum_indikator[$key]), 4) }}</td>
+                                        <td>{{ (round($i->nilai_i / sqrt($sum_indikator[$key]), 4))*($i->pivot->bobot) }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach

@@ -20,7 +20,7 @@ class seleksi extends Model
     public function indikator()
     {
         return $this->belongsToMany(Indikator::class)
-        ->withPivot('bobot');
+        ->withPivot('bobot','status');
     }
     public function beasiswa()
     {
