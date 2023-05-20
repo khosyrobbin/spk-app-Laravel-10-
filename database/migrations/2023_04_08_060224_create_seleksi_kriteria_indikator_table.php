@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('indikator_seleksi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('seleksi_seleksi_id')->constrained('seleksi', 'seleksi_id');
-            // $table->foreignId('kriteria_kriteria_id')->constrained('kriteria', 'kriteria_id');
             $table->foreignId('indikator_indikator_id')->constrained('indikator', 'indikator_id');
+            // new
+            $table->integer('bobot')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

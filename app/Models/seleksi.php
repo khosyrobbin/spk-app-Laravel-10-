@@ -14,15 +14,14 @@ class seleksi extends Model
         'NISN',
         'nama_siswa',
         'beasiswa_id',
+        'bobot',
+        // 'status',
     ];
     public function indikator()
     {
-        return $this->belongsToMany(Indikator::class);
+        return $this->belongsToMany(Indikator::class)
+        ->withPivot('bobot');
     }
-    // public function kriteria()
-    // {
-    //     return $this->belongsToMany(Kriteria::class);
-    // }
     public function beasiswa()
     {
         return $this->belongsTo(Beasiswa::class);

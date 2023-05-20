@@ -83,8 +83,8 @@
                             <label for="status" class="form-label text-bold">Status:</label>
                             <select name="status" id="status" class="form-control">
                                 <option value="" >Pilih status kriteria</option>
-                                <option value="Benefit">Benefit</option>
-                                <option value="Cost">Cost</option>
+                                <option value="1">Benefit</option>
+                                <option value="2">Cost</option>
                             </select>
                         </div>
                         <div class="modal-footer">

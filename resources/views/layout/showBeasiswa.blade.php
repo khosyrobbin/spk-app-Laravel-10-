@@ -35,8 +35,6 @@
                                         <tr>
                                             <td>{{ $item->NISN }}</td>
                                             <td>{{ $item->nama_siswa }}</td>
-                                            {{-- <td>{{ $item->nama_k }}</td>
-                                            <td>{{ $item->nama_i }}</td> --}}
                                             <td>{{ $item->status }}</td>
                                             <td>
                                                 {{-- <button class="btn btn-warning btn-detail open_modal"
@@ -94,6 +92,8 @@
                                         @endif
                                     @endforeach
                                 </select>
+                                <input type="text" name="bobot[]" value="{{$data->bobot}}">
+                                {{-- <input type="text" name="status" value="{{$data->status}}"> --}}
                             </div>
                         @endforeach
                         <div class="modal-footer">

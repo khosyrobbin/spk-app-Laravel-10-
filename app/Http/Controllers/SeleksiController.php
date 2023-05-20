@@ -42,17 +42,26 @@ class SeleksiController extends Controller
             'NISN' => 'required|numeric',
             'nama_siswa' => 'required',
             'beasiswa_id' => 'required',
-            'indikator_id' => 'required|array|max:5'
+            'indikator_id' => 'required|array|max:5',
+            'bobot' => 'required|array',
+            'bobot.*' => 'numeric',
         ]);
-        if ($seleksi = seleksi::create($request->all())) { {
-                $seleksi->indikator()->sync($request['indikator_id']);
-                // $seleksi->indikator()->sync($request['indikator_id']);
-            }
 
-            return redirect()->back();
+        $seleksi = Seleksi::create([
+            'NISN' => $request->NISN,
+            'nama_siswa' => $request->nama_siswa,
+            'beasiswa_id' => $request->beasiswa_id,
+        ]);
+
+        $indikatorIds = $request->indikator_id;
+        $bobotArray = $request->bobot;
+
+        foreach ($indikatorIds as $index => $indikatorId) {
+            $bobot = $bobotArray[$index];
+            $seleksi->indikator()->attach($indikatorId, ['bobot' => $bobot]);
         }
-        // seleksi::create($request->all());
-        // return redirect()->back();
+
+        return redirect()->back();
     }
 
     /**

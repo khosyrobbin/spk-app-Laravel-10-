@@ -21,6 +21,7 @@ class Indikator extends Model
     }
     public function seleksi()
     {
-        return $this->belongsToMany(seleksi::class);
+        return $this->belongsToMany(seleksi::class)
+        ->withPivot('indikator_bobot');
     }
 }

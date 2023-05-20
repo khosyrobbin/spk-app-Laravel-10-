@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('kriteria_id');
             $table->string('nama_k');
             $table->integer('bobot');
-            $table->string('status');
+            $table->integer('status');
             $table->timestamps();
         });
     }
