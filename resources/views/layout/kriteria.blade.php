@@ -31,7 +31,13 @@
                                     <tr>
                                         <td>{{ $item->nama_k }}</td>
                                         <td>{{ $item->bobot }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>
+                                            @if ($item->status == 1)
+                                                Benefit
+                                            @else
+                                                Cost
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="{{ route('kriteria.destroy', $item->kriteria_id) }}"
                                                 method="post">

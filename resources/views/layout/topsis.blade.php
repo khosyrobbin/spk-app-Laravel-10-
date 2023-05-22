@@ -68,8 +68,8 @@
                                 @endforeach
                             </tr>
                             <tr>
-                                @for ($i = 1; $i <= $jml_k; $i++)
-                                    <th>K{{ $i }}</th>
+                                @for ($n = 1; $n <= $jml_k; $n++)
+                                    <th>K{{ $n }}</th>
                                 @endfor
                             </tr>
                         </thead>
@@ -86,17 +86,17 @@
                                     @endforeach
                                 </tr>
                             @endforeach
-                            {{-- <td></td>
+                            <td></td>
                             <td></td>
                             <td>Jumlah =</td>
                             @foreach ($sum_indikator as $indikator)
                                 <td> {{ $indikator }} </td>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-            {{-- 3 --}}
+            {{-- 3. Normalisasi terbobot --}}
             <div class="section-body">
                 <div class="card">
                     <h6>Normalisasi Terbobot(r<sub>ij</sub>)</h6>
@@ -128,7 +128,11 @@
                                     <td>A{{ $no }}</td>
                                     <td>{{ $data->nama_siswa }}</td>
                                     @foreach ($data->indikator as $key => $i)
-                                        <td>{{ (round($i->nilai_i / sqrt($sum_indikator[$key]), 4))*($i->pivot->bobot) }}</td>
+                                        @php
+                                            $normalisasi_terbobot = round($i->nilai_i / sqrt($sum_indikator[$key]), 4) * $i->pivot->bobot;
+                                        @endphp
+                                        <td>{{ $normalisasi_terbobot }}
+                                        </td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -138,7 +142,77 @@
             </div>
 
             {{-- 4 --}}
+            <div class="section-body">
+                <div class="card">
+                    <h6>Solusi Ideal positif (A<sup>+</sup>)</h6>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="{{ $b->kriteria->count() }}">Kriteria</th>
+                            </tr>
+                            <tr>
+                                @foreach ($beasiswa->kriteria as $data)
+                                    <th>{{ $data->nama_k }}
+                                        (@if ($data->status == 1)
+                                            Benefit
+                                        @else
+                                            Cost
+                                        @endif)
+                                        {{ $data->status }}
+                                    </th>
+                                @endforeach
+                            </tr>
+                            <tr>
+                                @for ($i = 1; $i <= $jml_k; $i++)
+                                    <th>y<sub>{{ $i }}</sub><sup>+</sup></th>
+                                @endfor
+                            </tr>
+                        </thead>
+                        <tbody class="table-hover">
+                            @foreach ($max_values as $ideal_positif)
+                                <td> {{ $ideal_positif }} </td>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             {{-- 5 --}}
+            <div class="section-body">
+                <div class="card">
+                    <h6>Solusi Ideal negatif (A<sup>-</sup>)</h6>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="{{ $b->kriteria->count() }}">Kriteria</th>
+                            </tr>
+                            <tr>
+                                @foreach ($beasiswa->kriteria as $data)
+                                    <th>{{ $data->nama_k }}
+                                        (@if ($data->status == 1)
+                                            Benefit
+                                        @else
+                                            Cost
+                                        @endif)
+                                        {{ $data->status }}
+                                    </th>
+                                @endforeach
+                            </tr>
+                            <tr>
+                                @for ($i = 1; $i <= $jml_k; $i++)
+                                    <th>y<sub>{{ $i }}</sub><sup>-</sup></th>
+                                @endfor
+                            </tr>
+                        </thead>
+                        <tbody class="table-hover">
+                            @foreach ($min_values as $ideal_negatif)
+                                <td> {{ $ideal_negatif }} </td>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             {{-- 6 --}}
             {{-- 7 --}}
             {{-- 8 --}}

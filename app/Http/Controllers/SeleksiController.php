@@ -63,8 +63,7 @@ class SeleksiController extends Controller
             $bobot = $bobotArray[$index];
             $status = $statusArray[$index];
 
-            $seleksi->indikator()->attach($indikatorId, ['bobot' => $bobot,'status' => $status]);
-
+            $seleksi->indikator()->attach($indikatorId, ['bobot' => $bobot, 'status' => $status]);
         }
 
         return redirect()->back();
@@ -110,7 +109,6 @@ class SeleksiController extends Controller
         $seleksi = seleksi::with('indikator')->get();
 
         $indikator = $seleksi->pluck('indikator');
-
         $sum_indikator = [];
 
         foreach ($indikator as $index => $subArray) {
@@ -122,14 +120,65 @@ class SeleksiController extends Controller
             }
         }
 
-        // $indikator = Indikator::get()->pluck('nilai_i', 'indikator_id');
-        // $kriteria = Kriteria::all();
 
+        // $maxValues = [];
+        // foreach ($indikator as $index => $subArray) {
+        //     foreach ($subArray as $innerIndex => $value) {
+        //         if (!isset($maxValues[$innerIndex])) {
+        //             $maxValues[$innerIndex] = $value["nilai_i"];
+        //         } else {
+        //             $maxValues[$innerIndex] = max($maxValues[$innerIndex], $value["nilai_i"]);
+        //         }
+        //     }
+        // }
 
-        // $indikator = array();
-        // $kriteria_s = array();
+        // Hampir benar
+        $nilai_tertinggi = [];
 
-        // dd($seleksi);
-        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator'));
+        foreach ($seleksi as $data) {
+            $nilai_normalisasi_terbobot = [];
+            foreach ($data['indikator'] as $key => $i) {
+                $normalisasi_terbobot = round($i['nilai_i'] / sqrt($sum_indikator[$key]), 4) * $i['pivot']['bobot'];
+                $nilai_normalisasi_terbobot[] = $normalisasi_terbobot;
+            }
+            $nilai_tertinggi[] = max($nilai_normalisasi_terbobot);
+        }
+        // solusi ideal positif
+        $max_values = [];
+        foreach ($seleksi as $subArray) {
+            $nilai_normalisasi_terbobot = [];
+            foreach ($subArray['indikator'] as $innerIndex => $value) {
+                $normalisasi_terbobot = round($value['nilai_i'] / sqrt($sum_indikator[$innerIndex]), 4) * $value['pivot']['bobot'];
+                if ($value->pivot->status == 1) {
+                    if (!isset($max_values[$innerIndex]) || $normalisasi_terbobot > $max_values[$innerIndex]) {
+                        $max_values[$innerIndex] = $normalisasi_terbobot;
+                    }
+                } else {
+                    if (!isset($max_values[$innerIndex]) || $normalisasi_terbobot < $max_values[$innerIndex]) {
+                        $max_values[$innerIndex] = $normalisasi_terbobot;
+                    }
+                }
+            }
+        }
+        $min_values = [];
+        foreach ($seleksi as $subArray) {
+            $nilai_normalisasi_terbobot = [];
+            foreach ($subArray['indikator'] as $innerIndex => $value) {
+                $normalisasi_terbobot = round($value['nilai_i'] / sqrt($sum_indikator[$innerIndex]), 4) * $value['pivot']['bobot'];
+                if ($value->pivot->status == 1) {
+                    if (!isset($min_values[$innerIndex]) || $normalisasi_terbobot < $min_values[$innerIndex]) {
+                        $min_values[$innerIndex] = $normalisasi_terbobot;
+                    }
+                } else {
+                    if (!isset($min_values[$innerIndex]) || $normalisasi_terbobot > $min_values[$innerIndex]) {
+                        $min_values[$innerIndex] = $normalisasi_terbobot;
+                    }
+                }
+            }
+        }
+
+        // dd($nilai_tertinggi);
+
+        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator', 'nilai_tertinggi', 'max_values', 'min_values'));
     }
 }
