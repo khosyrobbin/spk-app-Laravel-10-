@@ -177,8 +177,18 @@ class SeleksiController extends Controller
             }
         }
 
+        // jarak ideal
+        $results = [];
+        foreach ($seleksi as $subArray) {
+            $expressionResult = [];
+            foreach ($subArray['indikator'] as $innerIndex => $value) {
+                $expressionResult = pow(($value['nilai_i'] - $value['pivot']['bobot']), 2);
+                $results[] = $expressionResult;
+            }
+        }
+
         // dd($nilai_tertinggi);
 
-        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator', 'nilai_tertinggi', 'max_values', 'min_values'));
+        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator', 'nilai_tertinggi', 'max_values', 'min_values','results'));
     }
 }
