@@ -213,7 +213,7 @@
                 </div>
             </div>
 
-            {{-- 6. Jarak ideal positif --}}
+            {{-- 6. Jarak ideal positif dan negatif --}}
             <div class="section-body">
                 <div class="card">
                     <h6>Jarak Ideal positif (D<sub>i</sub><sup>+</sup>) & Jarak Ideal negatif (D<sub>i</sub><sup>-</sup>)
@@ -259,9 +259,52 @@
                 </div>
             </div>
 
-            {{-- 7 --}}
-            {{-- 8 --}}
-            {{-- 9 --}}
+            {{-- 7. Nilai Preferensi --}}
+            <div class="section-body">
+                <div class="card">
+                    <h6>Nilai Preferensi(V<sub>i</sub>)</h6>
+                    <table class="table table-hover">
+                        <thead>
+                            <th>No</th>
+                            <th>Alternatif</th>
+                            <th>Nama</th>
+                            <th>V<sub>i</sub></th>
+                        </thead>
+                        <tbody class="table-hover">
+                            @php
+                                $no = 0;
+                            @endphp
+                            @foreach ($seleksi as $data)
+                                <tr>
+                                    <td>{{ ++$no }}</td>
+                                    <td>A{{ $no }}</td>
+                                    <td>{{ $data->nama_siswa }}</td>
+                                    @php
+                                        $hasil_idealPositif = 0; // Initialize as float
+                                        $hasil_idealNegatif = 0;
+
+                                        $nilai_preferensi = 0;
+                                    @endphp
+                                    @foreach ($data->indikator as $key => $i)
+                                        @php
+                                            $normalisasi_terbobot = round($i->nilai_i / sqrt($sum_indikator[$key]), 4) * $i->pivot->bobot;
+                                            $hasil_idealPositif += pow($normalisasi_terbobot - $max_values[$key], 2);
+                                            $total_idealPositif = round(sqrt($hasil_idealPositif), 4);
+
+                                            $hasil_idealNegatif += pow($normalisasi_terbobot - $min_values[$key], 2);
+                                            $total_idealNegatif = round(sqrt($hasil_idealNegatif), 4);
+
+                                            $nilai_preferensi = $total_idealNegatif / ($total_idealPositif + $total_idealNegatif);
+                                        @endphp
+                                    @endforeach
+                                    <td>{{ $nilai_preferensi }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
         </section>
     </div>
 @endsection

@@ -57,7 +57,7 @@ class BeasiswaController extends Controller
      */
     public function show($beasiswa_id)
     {
-        $beasiswa = Beasiswa::with('kriteria')->first();
+        $beasiswa = Beasiswa::with('kriteria')->findOrFail($beasiswa_id);
 
         $seleksi = seleksi::all();
         $indikator_s = Indikator::all();

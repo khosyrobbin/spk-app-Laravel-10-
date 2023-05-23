@@ -105,7 +105,7 @@ class SeleksiController extends Controller
 
     public function topsis($beasiswa_id)
     {
-        $beasiswa = Beasiswa::with('kriteria')->first();
+        $beasiswa = Beasiswa::with('kriteria')->findOrFail($beasiswa_id);;
         $seleksi = seleksi::with('indikator')->get();
 
         $indikator = $seleksi->pluck('indikator');
