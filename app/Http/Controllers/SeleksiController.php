@@ -105,18 +105,23 @@ class SeleksiController extends Controller
 
     public function topsis($beasiswa_id)
     {
-        $beasiswa = Beasiswa::with('kriteria')->findOrFail($beasiswa_id);;
-        $seleksi = seleksi::with('indikator')->get();
+        $beasiswa = Beasiswa::with('kriteria')->findOrFail($beasiswa_id);
+        $seleksi = seleksi::with('indikator')->where('beasiswa_id', $beasiswa_id)->get();
 
-        $indikator = $seleksi->pluck('indikator');
-        $sum_indikator = [];
+        if ($seleksi->isEmpty()) {
+            // Jika tidak ada data seleksi untuk beasiswa_id yang diberikan
+            return response()->json(['message' => 'Tidak ada data seleksi untuk beasiswa ini.']);
+        } else {
+            $indikator = $seleksi->pluck('indikator');
+            $sum_indikator = [];
 
-        foreach ($indikator as $index => $subArray) {
-            foreach ($subArray as $innerIndex => $value) {
-                if (!isset($sum_indikator[$innerIndex])) {
-                    $sum_indikator[$innerIndex] = 0;
+            foreach ($indikator as $index => $subArray) {
+                foreach ($subArray as $innerIndex => $value) {
+                    if (!isset($sum_indikator[$innerIndex])) {
+                        $sum_indikator[$innerIndex] = 0;
+                    }
+                    $sum_indikator[$innerIndex] += pow($value["nilai_i"], 2);
                 }
-                $sum_indikator[$innerIndex] += pow($value["nilai_i"], 2);
             }
         }
 
@@ -189,6 +194,6 @@ class SeleksiController extends Controller
 
         // dd($nilai_tertinggi);
 
-        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator', 'nilai_tertinggi', 'max_values', 'min_values','results'));
+        return view('layout.topsis', compact('beasiswa', 'seleksi', 'sum_indikator', 'nilai_tertinggi', 'max_values', 'min_values', 'results'));
     }
 }
