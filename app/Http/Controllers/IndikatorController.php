@@ -15,7 +15,7 @@ class IndikatorController extends Controller
     {
         $indikator = Indikator::all();
         $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
-        return view('layout.indikator', compact('indikator','kriteria'));
+        return view('layout.indikator', compact('indikator', 'kriteria'));
     }
 
     /**
@@ -38,7 +38,7 @@ class IndikatorController extends Controller
         ]);
 
         Indikator::create($request->all());
-        return redirect()->route('indikator.index');
+        return redirect()->route('indikator.index')->with('success', 'Indikator berhasil ditambahkan.');
     }
 
     /**
@@ -71,7 +71,7 @@ class IndikatorController extends Controller
         ]);
 
         $indikator->update($request->all());
-        return redirect()->route('indikator.index');
+        return redirect()->route('indikator.index')->with('success', 'Indikator berhasil diperbarui.');
     }
 
     /**
@@ -79,8 +79,14 @@ class IndikatorController extends Controller
      */
     public function destroy(Indikator $indikator)
     {
-        $indikator->delete();
-        return redirect()->route('indikator.index');
+
+        try {
+            $indikator->delete();
+            return redirect()->route('indikator.index')->with('delete', 'Indikator berhasil dihapus.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorMessage = $e->errorInfo[2]; // Mendapatkan pesan error dari query exception
+
+            return redirect()->route('indikator.index')->with('error', $errorMessage);
+        }
     }
-    // test commit
 }

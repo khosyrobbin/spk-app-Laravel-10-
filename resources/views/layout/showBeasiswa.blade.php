@@ -1,6 +1,33 @@
 @extends('template.template')
 @section('content')
     <div class="main-content">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        @if (session('delete'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('delete') }}
+                </div>
+            </div>
+        @endif
+
         <section class="section">
             <div class="section-header">
                 <?php $b = App\Models\Beasiswa::find($beasiswa->beasiswa_id); ?>
@@ -92,8 +119,8 @@
                                         @endif
                                     @endforeach
                                 </select>
-                                <input type="hidden" name="bobot[]" value="{{$data->bobot}}">
-                                <input type="hidden" name="status[]" value="{{$data->status}}">
+                                <input type="hidden" name="bobot[]" value="{{ $data->bobot }}">
+                                <input type="hidden" name="status[]" value="{{ $data->status }}">
                             </div>
                         @endforeach
                         <div class="modal-footer">

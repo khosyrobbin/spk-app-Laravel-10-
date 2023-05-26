@@ -66,7 +66,7 @@ class SeleksiController extends Controller
             $seleksi->indikator()->attach($indikatorId, ['bobot' => $bobot, 'status' => $status]);
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data siswa berhasil ditambahkan.');
     }
 
     /**
@@ -100,7 +100,7 @@ class SeleksiController extends Controller
     {
         $seleksi->indikator()->detach();
         $seleksi->delete();
-        return redirect()->back();
+        return redirect()->back()->with('delete', 'Data siswa berhasil dihapus.');
     }
 
     public function topsis($beasiswa_id)

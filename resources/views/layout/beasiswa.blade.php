@@ -1,6 +1,46 @@
 @extends('template.template')
 @section('content')
     <div class="main-content">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        @if (session('delete'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('delete') }}
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
         <section class="section">
             <div class="section-header">
                 <h1 class="section-title">Halaman Beasiswa</h1>
@@ -34,13 +74,11 @@
                         <p>Kriteria: {{ implode(', ', $item->kriteria->pluck('nama_k')->toArray()) }}</p>
                         {{-- <p>{{$item->kriteria->pluck('nama_k')}}</p> --}}
                         <div class="article-cta">
-                            <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}"
-                                method="post">
+                            <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}" method="post">
                                 <a href="{{ route('topsis', $item->beasiswa_id) }}" class="btn btn-success">Lihat Hasil</a>
-                                <a href="{{ route('beasiswa.show', $item->beasiswa_id) }}"
-                                    class="btn btn-info">Kelola Beasiswa</a>
-                                <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}"
-                                    class="btn btn-warning">Edit</a>
+                                <a href="{{ route('beasiswa.show', $item->beasiswa_id) }}" class="btn btn-info">Kelola
+                                    Beasiswa</a>
+                                <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}" class="btn btn-warning">Edit</a>
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger">Delete</button>

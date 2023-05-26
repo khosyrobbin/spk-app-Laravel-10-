@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('seleksi_id');
             $table->integer('NISN')->unique();
             $table->string('nama_siswa');
-            $table->foreignId('beasiswa_id')->constrained('beasiswa', 'beasiswa_id');
+            $table->foreignId('beasiswa_id')->constrained('beasiswa', 'beasiswa_id')->onDelete('restrict');;
             $table->timestamps();
         });
     }

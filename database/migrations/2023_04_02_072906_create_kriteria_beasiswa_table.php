@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('beasiswa_kriteria', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('beasiswa_beasiswa_id')->constrained('beasiswa', 'beasiswa_id');
-            $table->foreignId('kriteria_kriteria_id')->constrained('kriteria', 'kriteria_id');
+            $table->foreignId('beasiswa_beasiswa_id')->constrained('beasiswa', 'beasiswa_id')->onDelete('restrict');;
+            $table->foreignId('kriteria_kriteria_id')->constrained('kriteria', 'kriteria_id')->onDelete('restrict');;
             $table->timestamps();
         });
 

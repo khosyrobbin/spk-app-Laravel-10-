@@ -20,7 +20,7 @@ class BeasiswaController extends Controller
         // $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
 
         // dd($kriteria);
-        return view('layout.beasiswa', compact('beasiswa','kriteria'));
+        return view('layout.beasiswa', compact('beasiswa', 'kriteria'));
     }
 
     /**
@@ -48,7 +48,7 @@ class BeasiswaController extends Controller
         if ($beasiswa = Beasiswa::create($request->all())) {
             $beasiswa->kriteria()->sync($request['kriteria_id']);
 
-            return redirect(route('beasiswa.index'));
+            return redirect(route('beasiswa.index'))->with('success', 'Beasiswa berhasil ditambahkan.');
         }
     }
 
@@ -64,7 +64,7 @@ class BeasiswaController extends Controller
         $kriteria_s = Kriteria::all();
 
         // dd($beasiswa->kriteria);
-        return view('layout.showBeasiswa', compact('beasiswa','seleksi','indikator_s','kriteria_s'));
+        return view('layout.showBeasiswa', compact('beasiswa', 'seleksi', 'indikator_s', 'kriteria_s'));
     }
 
     /**
@@ -75,13 +75,13 @@ class BeasiswaController extends Controller
         $beasiswa = Beasiswa::findOrFail($beasiswa_id);
         $kriteria = Kriteria::orderBy('nama_k', 'asc')->get()->pluck('nama_k', 'kriteria_id');
 
-        return view('layout.editBeasiswa', compact('beasiswa','kriteria'));
+        return view('layout.editBeasiswa', compact('beasiswa', 'kriteria'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,Beasiswa $beasiswa)
+    public function update(Request $request, Beasiswa $beasiswa)
     {
         $request->validate([
             'nama_b' => 'required',
@@ -91,7 +91,7 @@ class BeasiswaController extends Controller
         if ($beasiswa->update($request->all())) {
             $beasiswa->kriteria()->sync($request['kriteria_id']);
 
-            return redirect(route('beasiswa.index'));
+            return redirect(route('beasiswa.index'))->with('success', 'Kriteria berhasil diperbarui.');
         }
         // $beasiswa->update($request->all());
         // return redirect(route('beasiswa.index'));
@@ -102,8 +102,14 @@ class BeasiswaController extends Controller
      */
     public function destroy(Beasiswa $beasiswa)
     {
-        $beasiswa->kriteria()->detach();
-        $beasiswa->delete();
-        return redirect()->route('beasiswa.index');
+        try {
+            $beasiswa->kriteria()->detach();
+            $beasiswa->delete();
+            return redirect()->route('beasiswa.index')->with('delete', 'Beasiswa berhasil dihapus.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorMessage = 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage();
+
+            return redirect()->route('beasiswa.index')->with('error', $errorMessage);
+        }
     }
 }

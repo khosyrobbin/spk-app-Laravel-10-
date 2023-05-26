@@ -37,7 +37,7 @@ class KriteriaController extends Controller
 
         Kriteria::create($request->all());
         return redirect()->route('kriteria.index')
-        ->with('pesan','Kriteria berhasil ditambahakan');
+            ->with('success', 'Kriteria berhasil ditambahkan.');
     }
 
     /**
@@ -68,7 +68,7 @@ class KriteriaController extends Controller
         ]);
 
         $kriterium->update($request->all());
-        return redirect()->route('kriteria.index');
+        return redirect()->route('kriteria.index')->with('success', 'Kriteria berhasil diperbarui.');
     }
 
     /**
@@ -76,7 +76,13 @@ class KriteriaController extends Controller
      */
     public function destroy(Kriteria $kriterium)
     {
-        $kriterium->delete();
-        return redirect()->route('kriteria.index');
+        try {
+            $kriterium->delete();
+            return redirect()->route('kriteria.index')->with('delete', 'Kriteria berhasil dihapus.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorMessage = $e->errorInfo[2]; // Mendapatkan pesan error dari query exception
+
+            return redirect()->route('kriteria.index')->with('error', $errorMessage);
+        }
     }
 }

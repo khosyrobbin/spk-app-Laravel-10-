@@ -1,6 +1,46 @@
 @extends('template.template')
 @section('content')
     <div class="main-content">
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        @if (session('delete'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('delete') }}
+                </div>
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('error') }}
+                </div>
+            </div>
+        @endif
+
         <section class="section">
             <div class="section-header">
                 <h1 class="section-title">Halaman Indikator</h1>
@@ -8,12 +48,13 @@
             <div class="section-body">
                 <div class="card">
                     <div class="card-header">
-                        <p>indikator dapat diartikan sebagai alat ukur yang digunakan untuk memberikan petunjuk atau keterangan tentang suatu kondisi atau situasi tertentu.</p>
+                        <p>indikator dapat diartikan sebagai alat ukur yang digunakan untuk memberikan petunjuk atau
+                            keterangan tentang suatu kondisi atau situasi tertentu.</p>
                     </div>
                     <div class="card-body">
                         <div style="height: 50px">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#exampleModalIndikator">Tambah Indikator
+                                data-bs-target="#exampleModalIndikator">Tambah Indikator
                             </button>
                         </div>
                         <table class="table table-hover">
@@ -52,7 +93,8 @@
         </section>
     </div>
     <!-- Modal tambah kriteria -->
-    <div class="modal fade" id="exampleModalIndikator" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModalIndikator" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
