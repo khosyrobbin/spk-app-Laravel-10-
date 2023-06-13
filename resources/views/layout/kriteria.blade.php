@@ -53,47 +53,74 @@
                             ada.</p>
                     </div>
                     <div class="card-body">
-                        <div style="height: 50px">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Tambah Kriteria
-                            </button>
-                        </div>
+                        @if (Auth::user()->level == 1)
+                            <div style="height: 50px">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">Tambah Kriteria
+                                </button>
+                            </div>
+                        @else
+                        @endif
                         <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nama Kriteria</th>
-                                    <th scope="col">Bobot</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class=" table-hover">
-                                @foreach ($kriteria as $item)
+                            @if (Auth::user()->level == 1)
+                                <thead>
                                     <tr>
-                                        <td>{{ $item->nama_k }}</td>
-                                        <td>{{ $item->bobot }}</td>
-                                        <td>
-                                            @if ($item->status == 1)
-                                                Benefit
-                                            @else
-                                                Cost
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('kriteria.destroy', $item->kriteria_id) }}"
-                                                method="post">
-                                                <a href="{{ route('kriteria.edit', $item->kriteria_id) }}"
-                                                    class="btn btn-warning">edit</a>
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger">delete</button>
-                                            </form>
-                                        </td>
+                                        <th scope="col">Nama Kriteria</th>
+                                        <th scope="col">Bobot</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
+                                </thead>
+                                <tbody class=" table-hover">
+                                    @foreach ($kriteria as $item)
+                                        <tr>
+                                            <td>{{ $item->nama_k }}</td>
+                                            <td>{{ $item->bobot }}</td>
+                                            <td>
+                                                @if ($item->status == 1)
+                                                    Benefit
+                                                @else
+                                                    Cost
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <form action="{{ route('kriteria.destroy', $item->kriteria_id) }}"
+                                                    method="post">
+                                                    <a href="{{ route('kriteria.edit', $item->kriteria_id) }}"
+                                                        class="btn btn-warning">edit</a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger">delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            @else
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nama Kriteria</th>
+                                        <th scope="col">Bobot</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=" table-hover">
+                                    @foreach ($kriteria as $item)
+                                        <tr>
+                                            <td>{{ $item->nama_k }}</td>
+                                            <td>{{ $item->bobot }}</td>
+                                            <td>
+                                                @if ($item->status == 1)
+                                                    Benefit
+                                                @else
+                                                    Cost
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            @endif
                         </table>
-
                     </div>
                 </div>
             </div>

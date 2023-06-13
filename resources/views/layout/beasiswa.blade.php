@@ -52,11 +52,14 @@
                         <p>Halaman ini merupakan halaman untuk mengelola beasiswa</p>
                     </div>
                     <div class="card-body">
-                        <div style="height: 50px">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#exampleModalBeasiswa">Tambah Beasiswa
-                            </button>
-                        </div>
+                        @if (Auth::user()->level == 1)
+                            <div style="height: 50px">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModalBeasiswa">Tambah Beasiswa
+                                </button>
+                            </div>
+                        @else
+                        @endif
                     </div>
                 </div>
             </div>
@@ -76,12 +79,18 @@
                         <div class="article-cta">
                             <form action="{{ route('beasiswa.destroy', $item->beasiswa_id) }}" method="post">
                                 <a href="{{ route('topsis', $item->beasiswa_id) }}" class="btn btn-success">Lihat Hasil</a>
-                                <a href="{{ route('beasiswa.show', $item->beasiswa_id) }}" class="btn btn-info">Kelola
-                                    Beasiswa</a>
-                                <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}" class="btn btn-warning">Edit</a>
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger">Delete</button>
+                                @if (Auth::user()->level == 2)
+                                    <a href="{{ route('beasiswa.show', $item->beasiswa_id) }}" class="btn btn-info">Kelola
+                                        Beasiswa</a>
+                                @endif
+                                @if (Auth::user()->level == 1)
+                                    <a href="{{ route('beasiswa.edit', $item->beasiswa_id) }}"
+                                        class="btn btn-warning">Edit</a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">Delete</button>
+                                @else
+                                @endif
                             </form>
                             {{-- <a href="#">Read More <i class="fas fa-chevron-right"></i></a> --}}
                         </div>

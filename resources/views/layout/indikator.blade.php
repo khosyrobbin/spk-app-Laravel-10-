@@ -52,12 +52,17 @@
                             keterangan tentang suatu kondisi atau situasi tertentu.</p>
                     </div>
                     <div class="card-body">
+                        @if (Auth::user()->level == 1)
                         <div style="height: 50px">
                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                 data-bs-target="#exampleModalIndikator">Tambah Indikator
                             </button>
                         </div>
+                        @else
+
+                        @endif
                         <table class="table table-hover">
+                            @if (Auth::user()->level == 1)
                             <thead>
                                 <tr>
                                     <th scope="col">Nama Kriteria</th>
@@ -86,6 +91,25 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            @else
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nama Kriteria</th>
+                                    <th scope="col">Nama Indikator</th>
+                                    <th scope="col">Nilai Indikator</th>
+                                </tr>
+                            </thead>
+                            <tbody class=" table-hover">
+                                @foreach ($indikator as $item)
+                                    <tr>
+                                        <?php $nama = App\Models\Kriteria::find($item->kriteria_id); ?>
+                                        <td>{{ $nama->nama_k }}</td>
+                                        <td>{{ $item->nama_i }}</td>
+                                        <td>{{ $item->nilai_i }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            @endif
                         </table>
                     </div>
                 </div>

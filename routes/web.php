@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [KriteriaController::class, 'index']);
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-
 
 Auth::routes();
 

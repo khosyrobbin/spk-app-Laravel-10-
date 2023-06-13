@@ -114,7 +114,7 @@ class SeleksiController extends Controller
 
         if ($seleksi->isEmpty()) {
             // Jika tidak ada data seleksi untuk beasiswa_id yang diberikan
-            return response()->json(['message' => 'Tidak ada data seleksi untuk beasiswa ini.']);
+            return view('layout.topsis', compact('beasiswa', 'seleksi'));
         } else {
             $indikator = $seleksi->pluck('indikator');
             $sum_indikator = [];

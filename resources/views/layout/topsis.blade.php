@@ -1,6 +1,19 @@
 @extends('template.template')
 @section('content')
     <div class="main-content">
+        @if (session('delete'))
+            <div class="alert alert-danger alert-dismissible show fade">
+                <div class="alert-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="alert-body">
+                    <button class="close" data-dismiss="alert">
+                        <span>&times;</span>
+                    </button>
+                    {{ session('delete') }}
+                </div>
+            </div>
+        @endif
         <section class="section">
             <div class="section-header">
                 <?php
@@ -309,6 +322,78 @@
                                             <td>{{ $nilai_preferensi }}</td>
                                         </tr>
                                     @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{-- 8. Rangking --}}
+                <div class="section-body">
+                    <div class="card">
+                        <h6>Ranking</h6>
+                        <table class="table table-hover">
+                            <thead>
+                                <th>Nama</th>
+                                <th>V<sub>i</sub></th>
+                                <th>Rank</th>
+                            </thead>
+                            <tbody class="table-hover">
+                                @php
+                                    $no = 0;
+                                    $data_sorted = []; // Array untuk menyimpan data dengan nilai preferensi terurut
+                                @endphp
+                                @foreach ($seleksi as $data)
+                                    @if ($data->beasiswa_id == $b->beasiswa_id)
+                                        @php
+                                            $no++;
+                                            $alternatif = 'A' . $no;
+                                            $nama_siswa = $data->nama_siswa;
+                                            $hasil_idealPositif = 0;
+                                            $hasil_idealNegatif = 0;
+                                            $nilai_preferensi = 0;
+
+                                            // Hitung nilai preferensi untuk data yang sesuai
+                                            foreach ($data->indikator as $key => $i) {
+                                                $normalisasi_terbobot = round($i->nilai_i / sqrt($sum_indikator[$key]), 4) * $i->pivot->bobot;
+                                                $hasil_idealPositif += pow($normalisasi_terbobot - $max_values[$key], 2);
+                                                $hasil_idealNegatif += pow($normalisasi_terbobot - $min_values[$key], 2);
+
+                                                if ($key == count($data->indikator) - 1) {
+                                                    $total_idealPositif = round(sqrt($hasil_idealPositif), 4);
+                                                    $total_idealNegatif = round(sqrt($hasil_idealNegatif), 4);
+
+                                                    if ($total_idealPositif + $total_idealNegatif != 0) {
+                                                        $nilai_preferensi = $total_idealNegatif / ($total_idealPositif + $total_idealNegatif);
+                                                    } else {
+                                                        $nilai_preferensi = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            $data_sorted[] = [
+                                                'nama_siswa' => $nama_siswa,
+                                                'nilai_preferensi' => $nilai_preferensi,
+                                            ];
+                                        @endphp
+                                    @endif
+                                @endforeach
+
+                                @php
+                                    // Urutkan data berdasarkan nilai preferensi secara descending
+                                    usort($data_sorted, function ($a, $b) {
+                                        return $b['nilai_preferensi'] <=> $a['nilai_preferensi'];
+                                    });
+
+                                    $rank = 1;
+                                @endphp
+
+                                @foreach ($data_sorted as $data)
+                                    <tr>
+                                        <td>{{ $data['nama_siswa'] }}</td>
+                                        <td>{{ $data['nilai_preferensi'] }}</td>
+                                        <td>{{ $rank }}</td>
+                                    </tr>
+                                    @php $rank++; @endphp
                                 @endforeach
                             </tbody>
                         </table>
