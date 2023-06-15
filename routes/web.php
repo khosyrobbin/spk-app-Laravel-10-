@@ -21,7 +21,7 @@ Route::get('/', [KriteriaController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\KriteriaController::class, 'index'])->name('home');
 Route::resource('kriteria', KriteriaController::class);
 Route::resource('indikator', IndikatorController::class);
 Route::resource('beasiswa', BeasiswaController::class);
