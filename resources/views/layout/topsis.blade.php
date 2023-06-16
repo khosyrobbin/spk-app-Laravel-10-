@@ -25,7 +25,7 @@
 
             @if ($seleksi->where('beasiswa_id', $b->beasiswa_id)->isNotEmpty())
                 {{-- 1. Matriks penilaian --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Evaluation Matrix (x<sub>ij</sub>)</h6>
                         <table class="table table-hover">
@@ -65,9 +65,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 2. Normalisasi --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Normalisasi (r<sub>ij</sub>)</h6>
                         <table class="table table-hover">
@@ -113,9 +113,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 3. Normalisasi terbobot --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Normalisasi Terbobot(r<sub>ij</sub>)</h6>
                         <table class="table table-hover">
@@ -159,9 +159,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 4. Solusi ideal positif --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Solusi Ideal positif (A<sup>+</sup>)</h6>
                         <table class="table table-hover">
@@ -194,9 +194,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 5. Solusi ideal negatif --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Solusi Ideal negatif (A<sup>-</sup>)</h6>
                         <table class="table table-hover">
@@ -229,9 +229,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 6. Jarak ideal positif dan negatif --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Jarak Ideal positif (D<sub>i</sub><sup>+</sup>) & Jarak Ideal negatif
                             (D<sub>i</sub><sup>-</sup>)
@@ -266,7 +266,6 @@
                                                 $hasil_idealNegatif += pow($normalisasi_terbobot - $min_values[$key], 2);
                                                 $total_idealNegatif = round(sqrt($hasil_idealNegatif), 4);
                                             @endphp
-                                            {{-- <td>{{ $hasil_idealNegatif }}</td> --}}
                                         @endforeach
                                         <td>{{ $total_idealPositif }}</td>
                                         <td>{{ $total_idealNegatif }}</td>
@@ -275,9 +274,9 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 7. Nilai Preferensi --}}
-                <div class="section-body">
+                {{-- <div class="section-body">
                     <div class="card">
                         <h6>Nilai Preferensi(V<sub>i</sub>)</h6>
                         <table class="table table-hover">
@@ -326,7 +325,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div> --}}
                 {{-- 8. Rangking --}}
                 <div class="section-body">
                     <div class="card">
